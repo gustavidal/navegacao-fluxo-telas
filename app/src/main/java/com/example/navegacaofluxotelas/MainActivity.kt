@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.navegacaofluxotelas.screens.LoginScreen
 import com.example.navegacaofluxotelas.screens.MenuScreen
 import com.example.navegacaofluxotelas.screens.PedidosScreen
@@ -30,13 +31,46 @@ class MainActivity : ComponentActivity() {
                         navController = navController,
                         startDestination = "login"
                     ) {
-                        composable (route = "login") { LoginScreen(modifier = Modifier.padding(innerPadding)) }
+                        composable (route = "login") {
+                            LoginScreen(
+                                modifier = Modifier.padding(innerPadding),
+                                navController = navController
+                            )
+                        }
 
-                        composable (route = "menu") { MenuScreen(modifier = Modifier.padding(innerPadding)) }
+                        composable (route = "menu") {
+                            MenuScreen(
+                                modifier = Modifier.padding(innerPadding),
+                                navController = navController
+                            )
+                        }
 
-                        composable (route = "perfil") { PerfilScreen(modifier = Modifier.padding(innerPadding)) }
+                        composable (route = "perfil/{nome}") {
+                            val nome = it.arguments?.getString("nome")
 
-                        composable (route = "pedidos") { PedidosScreen(modifier = Modifier.padding(innerPadding)) }
+                            PerfilScreen(
+                                modifier = Modifier.padding(innerPadding),
+                                navController = navController,
+                                nome = nome!!.uppercase()
+                            )
+                        }
+
+                        composable (
+                            route = "pedidos?numeroPedido={numeroPedido}",
+                            arguments = listOf(
+                                navArgument(name = "numeroPedido") {
+                                    defaultValue = "Sem pedido"
+                                }
+                            )
+                        ) {
+                            val numeroPedido = it.arguments?.getString("numeroPedido")
+
+                            PedidosScreen(
+                                modifier = Modifier.padding(innerPadding),
+                                navController = navController,
+                                numeroPedido = numeroPedido!!
+                            )
+                        }
                     }
                 }
             }

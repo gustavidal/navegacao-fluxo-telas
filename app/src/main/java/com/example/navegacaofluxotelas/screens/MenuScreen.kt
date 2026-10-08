@@ -13,13 +13,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
-@Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun MenuScreen(modifier: Modifier = Modifier) {
+fun MenuScreen(
+        modifier: Modifier = Modifier,
+        navController: NavController
+    ) {
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -39,39 +41,45 @@ fun MenuScreen(modifier: Modifier = Modifier) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(
-                onClick = {},
+                onClick = {
+                    navController.navigate("perfil/gustavo")
+                },
                 colors = ButtonDefaults.buttonColors(
                     Color.White
                 )
             ) {
                 Text(
-                    text = "Perfil",
+                    text = "PERFIL",
                     fontSize = 20.sp,
                     color = Color.Blue
                 )
             }
 
             Button(
-                onClick = {},
+                onClick = {
+                    navController.navigate("pedidos")
+                },
                 colors = ButtonDefaults.buttonColors(
                     Color.White
                 )
             ) {
                 Text(
-                    text = "Pedidos",
+                    text = "PEDIDOS",
                     fontSize = 20.sp,
                     color = Color.Blue
                 )
             }
 
             Button(
-                onClick = {},
+                onClick = {
+                    navController.navigate("login")
+                },
                 colors = ButtonDefaults.buttonColors(
                     Color.White
                 )
             ) {
                 Text(
-                    text = "Sair",
+                    text = "SAIR",
                     fontSize = 20.sp,
                     color = Color.Blue
                 )
